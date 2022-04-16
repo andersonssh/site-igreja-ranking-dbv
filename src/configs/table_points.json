@@ -1,0 +1,89 @@
+[
+  {
+    "description": "Personalizado",
+    "points": 0,
+    "is_repeat": true,
+    "additionalData": true,
+    "is_special": true,
+    "code": "outro"
+  },
+  {
+    "description": "Finalizar um estudo bíblico",
+    "points": 900,
+    "is_repeat": false,
+    "additionalData": true,
+    "is_special": false
+  },
+  {
+    "description": "Mensalidade em dia",
+    "points": 250,
+    "is_repeat": false,
+    "additionalData": false,
+    "is_special": false
+  },
+  {
+    "description": "Concluir uma nova especialidade",
+    "points": 200,
+    "is_repeat": true,
+    "additionalData": true,
+    "is_special": false
+  },
+  {
+    "description": "Levar um amigo a reunião",
+    "points": 100,
+    "is_repeat": true,
+    "additionalData": true,
+    "is_special": false
+  },
+  {
+    "description": "Participar ativamente dos eventos da igreja",
+    "points": 100,
+    "is_repeat": false,
+    "additionalData": false,
+    "is_special": true,
+    "code": "eventos-igreja"
+  },
+  {
+    "description": "Frequencia",
+    "points": 50,
+    "is_repeat": false,
+    "additionalData": false,
+    "is_special": false
+  },
+  {
+    "description": "Uniforme",
+    "points": 30,
+    "is_repeat": false,
+    "additionalData": false,
+    "is_special": false
+  },
+  {
+    "description": "Pontualidade",
+    "points": 30,
+    "is_repeat": false,
+    "additionalData": false,
+    "is_special": false
+  },
+  {
+    "description": "Levar material completo",
+    "points": 30,
+    "is_repeat": false,
+    "additionalData": false,
+    "is_special": false
+  },
+  {
+    "description": "Apresentação de Nó",
+    "points": 30,
+    "is_repeat": false,
+    "additionalData": false,
+    "is_special": false
+  },
+  {
+    "description": "Dinâmica",
+    "points": 0,
+    "is_repeat": true,
+    "additionalData": false,
+    "is_special": true,
+    "code": "dinamica"
+  }
+]
