@@ -14,25 +14,15 @@ def _insert_point_and_description(points: int, description: str) -> dict:
 def special_personalizado():
     """TRATAMENTO PARA PONTOS PERSONALIZADOS"""
     print('* MODO PERSONALIZADO! (Points: "stop" para parar)\n')
-    data = []
-    while True:
-        points = input('Pontos: ').strip()
+    points = input('Pontos: ').strip()
 
-        if points.lower() == 'stop':
-            break
-        if not points.isnumeric():
-            continue
-        points = int(points)
+    if points.lower() == 'stop' or not points.isnumeric():
+        return
+    points = int(points)
 
-        description = input('Descrição: ')
-        print(f'Confirme os dados ---> pontos: {points} | description: {description}')
-        if input('"q" -> cancela | <ENTER> -> confirma: ').strip() == 'q':
-            print('Os dados dessa sessao foram descartados')
-        else:
-            data.append(_insert_point_and_description(points, description))
-            print('Inserido no rascunho')
+    description = input('Descrição: ')
 
-    return data
+    return [_insert_point_and_description(points, description)]
 
 
 def special_eventos_igreja():
@@ -55,25 +45,20 @@ def special_eventos_igreja():
 def special_dinamicas():
     """Tratamento para dinamicas"""
     print('* MODO DINAMICAS! (Points: "q" para parar)\n')
-    data = []
-    while True:
-        points = input('Pontos: ').strip()
+    points = input('Pontos: ').strip()
 
-        if points.lower() == 'q':
+    if points.lower() == 'q' or not points.isnumeric():
+        return
+
+    points = int(points)
+
+    description = 'Dinamicas'
+    for item in TABLE_POINTS:
+        if item.get('code') == 'dinamicas':
+            description = item['description']
             break
-        if not points.isnumeric():
-            continue
-        points = int(points)
 
-        description = 'Dinamicas'
-        for item in TABLE_POINTS:
-            if item.get('code') == 'dinamicas':
-                description = item['description']
-                break
-
-        data.append(_insert_point_and_description(points, description))
-
-    return data
+    return [_insert_point_and_description(points, description)]
 
 
 def insert_points(index):

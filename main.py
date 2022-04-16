@@ -1,7 +1,6 @@
 from src import api_connection
-from src.interface import (MEMBERS,
-                           TABLE_POINTS,
-                           update_users_list,
+from src.interface import (TABLE_POINTS,
+                           Members,
                            score_handler,
                            show_menus,
                            clear)
@@ -9,10 +8,14 @@ import pprint
 
 
 def handler_update_member():
+    clear()
+    index_member = show_menus.show_users_menu()
+    member_id = Members.MEMBERS[index_member]['_id']
+
     name = input('Digite o novo nome do usuario: ').strip()
     role = input('Digite a nova funcao do usuario: ').strip()
 
-    data, status_code = api_connection.update_member(name=name, role=role)
+    data, status_code = api_connection.update_member(member_id, name=name, role=role)
     if status_code == 200:
         print('USUARIO ATUALIZADO COM SUCESSO!')
     else:
@@ -27,10 +30,10 @@ def handler_ranking():
         index_member = show_menus.show_users_menu()
 
         if index_member == -1:
-            break
+            return
 
         used_options = set()
-        name_dbv = MEMBERS[index_member]['name']
+        name_dbv = Members.MEMBERS[index_member]['name']
         while True:
             clear()
             print('digite "q" para voltar ao menu anterior')
@@ -55,53 +58,75 @@ def handler_ranking():
             if input('PERSISTIR ALTERAÇÕES? "q"  cancela | <ENTER>  confirma: ').strip().lower() == 'q':
                 print('As alteracoes foram descartadas')
             else:
-                data, status_code = api_connection.update_member(MEMBERS[index_member]['_id'],
+                data, status_code = api_connection.update_member(Members.MEMBERS[index_member]['_id'],
                                                                  score_details=score_details)
                 if status_code == 200:
-                    print('PONTOS CONTABILIZADOS COM SUCESSO!')
+                    input('PONTOS CONTABILIZADOS COM SUCESSO!')
                 else:
                     print('OS PONTOS NÂO PUDERAM SER CONTABILIZADOS!')
-                    print(data)
+                    input(data)
 
         used_options = set()
 
 
 def handler_show_members():
-    print('Ver todos os usuarios\n')
-    for user in MEMBERS:
-        pprint.pprint(user)
+    clear()
+    print('Ver todos os membros\n')
+    for i in range(len(Members.MEMBERS)):
+        print(f'{i}) {Members.MEMBERS[i]["name"]} | {Members.MEMBERS[i]["role"]} | '
+              f'{Members.MEMBERS[i]["score"]}')
+    index_member = input('\nInsira a opção: ')
+    if not index_member.isnumeric():
+        return
+    index_member = int(index_member)
+    name = Members.MEMBERS[index_member]['name']
+    id_ = Members.MEMBERS[index_member]['_id']
+    score = Members.MEMBERS[index_member]['score']
+    score_details = Members.MEMBERS[index_member]['score_details']
+    role = Members.MEMBERS[index_member]['role']
+
+    print(f'_id: {id_}\nNome: {name}\nRole: {role}\nScore: {score}\nScore_details: ', end='')
+    pprint.pprint(score_details)
 
 
 def handler_post_members():
+    clear()
     print('Inserir novo membro\n')
     name = input('Insira o nome do novo membro: ').strip().title()
     role = input('Insira a funcao do novo membro: ').strip()
-    if input('Digite "s" para inserir os dados ou qualquer'
-             ' outra tecla para cancelar: ').strip().lower() == 's':
-        data, status_code = api_connection.insert_member(name, role)
-        if status_code == 201:
-            print('Usuario cadastrado!')
-        else:
-            print('Falha ao cadastrar usuario')
-            print(data)
-    return None
+
+    if input('"q"  cancela | <ENTER>  confirma: ').strip().lower() == 'q':
+        return
+    data, status_code = api_connection.insert_member(name, role)
+    if status_code == 201:
+        print('Usuario cadastrado!')
+    else:
+        print('Falha ao cadastrar usuario')
+        print(data)
 
 
 def show_menu():
+    clear()
     print('Menu principal')
     print('1) Atualizar dados dos membros')
     print('2) Ver dados de todos os membros')
-    print('3) Inserir novos membros\n')
+    print('3) Inserir novos membros')
+    print('4) Atualizar nome e/ou cargo de membro\n')
     option = input('Opção: ')
 
     if option == '1':
         handler_ranking()
-    if option == '2':
+    elif option == '2':
         handler_show_members()
     elif option == '3':
         handler_post_members()
+    elif option == '4':
+        handler_update_member()
+    else:
+        print('Opção inválida')
+
     input('\nPRESSIONE QUALQUER TECLA PARA CONTINUAR...')
-    update_users_list()
+    Members.update_users_list()
 
 
 if __name__ == '__main__':

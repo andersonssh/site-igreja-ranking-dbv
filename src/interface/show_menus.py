@@ -1,4 +1,4 @@
-from . import COLOR_NONE, COLOR_RED, COLOR_GREEN, TABLE_POINTS, MEMBERS
+from . import COLOR_NONE, COLOR_RED, COLOR_GREEN, TABLE_POINTS, Members
 from src.utils import is_user_updated_today
 
 
@@ -45,15 +45,14 @@ def show_users_menu() -> int:
     Returns:
         int: retorna o numero da opcao escolhida ou -1 para opcao invalida
     """
-
-    max_option = len(MEMBERS) - 1
-    for i in range(len(MEMBERS)):
-        if is_user_updated_today(MEMBERS[i]):
+    max_option = len(Members.MEMBERS) - 1
+    for i in range(len(Members.MEMBERS)):
+        if is_user_updated_today(Members.MEMBERS[i]):
             color = COLOR_GREEN
         else:
             color = COLOR_NONE
 
-        print(f'{color}{i}) {MEMBERS[i]["name"]}{COLOR_NONE}')
+        print(f'{color}{i}) {Members.MEMBERS[i]["name"]}{COLOR_NONE}')
 
     option = input('Insira a opção: ').strip()
     if option.isnumeric() and int(option) <= max_option:

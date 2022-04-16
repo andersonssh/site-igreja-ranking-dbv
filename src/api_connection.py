@@ -35,11 +35,11 @@ def insert_member(name, role):
 
 def update_member(member_id, name: str = None, role: str = None, score_details: dict = None):
     payload = {}
-    if not name:
+    if name:
         payload['name'] = name
-    if not role:
+    if role:
         payload['role'] = role
-    if not score_details:
+    if score_details:
         payload['score_details'] = score_details
 
     response = put(MEMBERS_ROUTE + member_id, headers=JWT_HEADER, json=payload)
