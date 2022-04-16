@@ -26,7 +26,9 @@ def special_personalizado():
 
         description = input('Descrição: ')
         print(f'Confirme os dados ---> pontos: {points} | description: {description}')
-        if input('Insira "s" para confirmar: ').strip() == 's':
+        if input('"q" -> cancela | <ENTER> -> confirma: ').strip() == 'q':
+            print('Os dados dessa sessao foram descartados')
+        else:
             data.append(_insert_point_and_description(points, description))
             print('Inserido no rascunho')
 
@@ -52,12 +54,12 @@ def special_eventos_igreja():
 
 def special_dinamicas():
     """Tratamento para dinamicas"""
-    print('* MODO DINAMICAS! (Points: "stop" para parar)\n')
+    print('* MODO DINAMICAS! (Points: "q" para parar)\n')
     data = []
     while True:
         points = input('Pontos: ').strip()
 
-        if points.lower() == 'stop':
+        if points.lower() == 'q':
             break
         if not points.isnumeric():
             continue
@@ -68,10 +70,8 @@ def special_dinamicas():
             if item.get('code') == 'dinamicas':
                 description = item['description']
                 break
-        print(f'Confirme os dados ---> pontos: {points}')
-        if input('Insira "s" para confirmar: ').strip() == 's':
-            data.append(_insert_point_and_description(points, description))
-            print('Inserido no rascunho')
+
+        data.append(_insert_point_and_description(points, description))
 
     return data
 
@@ -89,7 +89,6 @@ def insert_points(index):
 
     additional_data = ''
     if item_table_points.get('additionalData'):
-        additional_data = ': ' + input('Insira os dados adicionais (QUAL ou QUEM?)->\n'
-                                       f'{description}: ').strip()
+        additional_data = ': ' + input('Insira os dados adicionais (QUAL ou QUEM?)-> ').strip()
 
     return [_insert_point_and_description(points, f'{description}{additional_data}')]

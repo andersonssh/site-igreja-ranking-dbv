@@ -20,24 +20,27 @@ JWT_HEADER = jwt_header_generate()
 
 
 def get_members():
-    return get(MEMBERS_ROUTE)
+    return get(MEMBERS_ROUTE).json()
 
 
 def get_member(member_id):
-    return get(MEMBERS_ROUTE + member_id)
+    return get(MEMBERS_ROUTE + member_id).json()
 
 
 def insert_member(name, role):
-    return post(MEMBERS_ROUTE, headers=JWT_HEADER, json={'name': name, 'role': role})
+    response = post(MEMBERS_ROUTE, headers=JWT_HEADER, json={'name': name,
+                                                             'role': role})
+    return response.json(), response.status_code
 
 
 def update_member(member_id, name: str = None, role: str = None, score_details: dict = None):
     payload = {}
-    if not name is None:
+    if not name:
         payload['name'] = name
-    if not role is None:
+    if not role:
         payload['role'] = role
-    if not score_details is None:
+    if not score_details:
         payload['score_details'] = score_details
 
-    return put(MEMBERS_ROUTE + member_id, json=payload)
+    response = put(MEMBERS_ROUTE + member_id, headers=JWT_HEADER, json=payload)
+    return response.json(), response.status_code
