@@ -1,7 +1,12 @@
-import json
-from . import USERS
-from . import COLOR_NONE, COLOR_RED, COLOR_GREEN, TABLE_POINTS
+from . import COLOR_NONE, COLOR_RED, COLOR_GREEN, TABLE_POINTS, USERS
 from src.utils import is_user_updated_today
+
+
+def show_points_and_description(data: list):
+    """EXIBE LISTA DE SCORE_DETAILS"""
+
+    for item in data:
+        print(f'Pontos: {item["points"]} | Description: {item["description"]}')
 
 
 def show_points_menu(name_dbv: str, list_used_options: set) -> int:

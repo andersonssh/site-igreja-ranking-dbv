@@ -1,5 +1,3 @@
-from src import api_connection
-
-
+from src.interface import score_handler
 
 
