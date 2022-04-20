@@ -71,7 +71,6 @@ def insert_points(index):
     """
     item_table_points = TABLE_POINTS[index]
     points = item_table_points['points']
-    print(points)
     description = item_table_points['description']
 
     additional_data = ''
