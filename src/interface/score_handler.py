@@ -16,9 +16,10 @@ def special_personalizado():
     print('* MODO PERSONALIZADO! (Points: "stop" para parar)\n')
     points = input('Pontos: ').strip()
 
-    if points.lower() == 'stop' or not points.isnumeric():
+    try:
+        points = int(points)
+    except ValueError as e:
         return
-    points = int(points)
 
     description = input('Descrição: ')
 
@@ -70,6 +71,7 @@ def insert_points(index):
     """
     item_table_points = TABLE_POINTS[index]
     points = item_table_points['points']
+    print(points)
     description = item_table_points['description']
 
     additional_data = ''
