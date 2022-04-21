@@ -1,10 +1,22 @@
+import pprint
+import os
+import json
 from src import api_connection
 from src.interface import (TABLE_POINTS,
                            Members,
                            score_handler,
                            show_menus,
                            clear)
-import pprint
+
+
+def users_backup():
+    members_backup_dir = os.path.join(os.path.expanduser('~'), 'Documentos/Backup-igreja/dbv')
+    if not os.path.exists(members_backup_dir):
+        os.makedirs(members_backup_dir)
+
+    with open(os.path.join(members_backup_dir, 'members.json'), 'a', encoding='utf-8') as f:
+        print('salvando backup na pasta: ', members_backup_dir)
+        f.write(json.dumps(Members.MEMBERS, indent=3))
 
 
 def handler_update_member():
@@ -111,7 +123,8 @@ def show_menu():
     print('1) Atualizar dados dos membros')
     print('2) Ver dados de todos os membros')
     print('3) Inserir novos membros')
-    print('4) Atualizar nome e/ou cargo de membro\n')
+    print('4) Atualizar nome e/ou cargo de membro')
+    print('5) Fazer backup de dados dos usuarios localmente\n')
     option = input('Opção: ')
 
     if option == '1':
@@ -122,6 +135,8 @@ def show_menu():
         handler_post_members()
     elif option == '4':
         handler_update_member()
+    elif option == '5':
+        users_backup()
     else:
         print('Opção inválida')
 
